@@ -1,0 +1,54 @@
+version: "3"
+
+services:
+  nginx:
+    build: ./nginx
+    image: "nginx:latest"
+    networks:
+      - front
+      - back
+    ports:
+      - "80:80"
+    depends_on:
+      - daphne
+    links:
+      - daphne
+  redis:
+    image: redis:alpine
+    networks:
+      - back
+    ports:
+      - "6379:6379"
+  daphne:
+    build: ./app
+    image: "channel_prod:latest"
+    working_dir: /src/
+    command: ls -la
+    command: bash -c "daphne -b 0.0.0.0 -p 9542 channelsproject.asgi:application"
+    ports:
+      - "9542:9542"
+    env_file:
+      - ./app/app_env
+    networks:
+      - front
+      - back
+    depends_on:
+      - redis
+    links:
+      - redis
+  worker:
+    image: "channel_prod:latest"
+    working_dir: /src/
+    command: bash -c "python manage.py runworker 'file-upload'"
+    env_file:
+      - ./app/app_env
+    networks:
+      - front
+      - back
+    depends_on:
+      - redis
+    links:
+      - redis
+networks:
+  front:
+  back:

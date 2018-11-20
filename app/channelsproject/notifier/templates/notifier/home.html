@@ -1,0 +1,47 @@
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Hello Channels</h2>
+    <p>Open your console by hitting 'ctrl+shift+J' (Linux/Windows) <br>
+       or 'command+options+J' (Mac)</p>
+
+    <script>
+        // Create WebSocket connection.
+        var loc = window.location;
+        console.log(loc);
+        var wsStart = 'ws://';
+        if(loc.protocol == 'https:'){
+            wsStart = 'wss://';
+        }
+        var endpoint = wsStart + loc.host + loc.pathname;
+        const socket = new WebSocket(endpoint);
+
+
+        socket.onmessage = function(e){
+            console.log("message", e)
+        }
+
+        socket.onopen = function(e){
+            console.log("open", e)
+        }
+
+        socket.onerror = function(e){
+            console.log("error", e)
+        }
+
+
+        socket.onclose = function(e){
+            console.log("close", e)
+        }
+
+        document.ws = socket;
+
+    </script>
+</body>
+</html>
