@@ -1,7 +1,7 @@
-from django.urls import path
+from django.urls import re_path
 
 from . import consumers
 
 websocket_urlpatterns = [
-    path('', consumers.EchoConsumer),
+    re_path(r'.{0,}', consumers.EchoConsumer),
 ]

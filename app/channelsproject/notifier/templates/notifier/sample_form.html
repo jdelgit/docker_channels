@@ -1,0 +1,19 @@
+<div class="content-section">
+        <p>
+            Obsere the output in the python terminal
+        </p>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset>
+                <legend>
+                </legend>
+                {{ form.as_p }}
+
+            </fieldset>
+            <div >
+                <button type="submit">
+                    Submit
+                </button>
+            </div>
+        </form>
+    </div>

@@ -5,8 +5,8 @@ import json
 class EchoConsumer(AsyncWebsocketConsumer):
 
     async def websocket_connect(self, event):
-        print("connected", event)
-        self.return_channel = 'user_channel'
+        print("connected to Echo Consumer", event)
+        self.return_channel = 'return_channel'
 
         await self.channel_layer.group_add(
             self.return_channel,
@@ -23,7 +23,7 @@ class EchoConsumer(AsyncWebsocketConsumer):
             {
                 "type": "stupid.message",
                 "num_lines": data,
-                "return_channel": self.return_channel
+                "return_channel": "my_return_channel"
             },
         )
 

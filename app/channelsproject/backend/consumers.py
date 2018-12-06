@@ -5,7 +5,7 @@ from asgiref.sync import async_to_sync
 class UploadConsumer(AsyncWebsocketConsumer):
 
     async def websocket_connect(self, event):
-        print("connected", event)
+        print("connected to Upload consumer", event)
         await self.accept()
 
     async def websocket_receive(self, event):
@@ -39,11 +39,11 @@ class UploadConsumer(AsyncWebsocketConsumer):
         )
 
         # delete channel once message sent
-        async_to_sync(
-            await self.channel_layer.group_send(
-                    ch,
-                    {
-                        'type': 'websocket.close',
-                    },
-                )
-        )
+        # async_to_sync(
+        #     await self.channel_layer.group_send(
+        #             ch,
+        #             {
+        #                 'type': 'websocket.close',
+        #             },
+        #         )
+        # )

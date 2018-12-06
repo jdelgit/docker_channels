@@ -7,8 +7,6 @@ RUN apk update && \
     apk add bash
 RUN apk add build-base
 WORKDIR /src
-# RUN git init
-# RUN git pull https://github.com/jdelgit/docker_channels.git
 RUN pip3 install -r /src/requirements.txt
 EXPOSE 9542
 

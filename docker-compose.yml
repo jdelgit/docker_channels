@@ -23,8 +23,7 @@ services:
     build: ./app
     image: "channel_prod:latest"
     working_dir: /src/
-    command: ls -la
-    command: bash -c "daphne -b 0.0.0.0 -p 9542 channelsproject.asgi:application"
+    command: bash -c "./migrate.sh; daphne -b 0.0.0.0 -p 9542 channelsproject.asgi:application"
     ports:
       - "9542:9542"
     env_file:
